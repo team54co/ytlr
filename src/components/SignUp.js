@@ -6,12 +6,13 @@ import {register} from '../auth/Fire';
 
 const SignUp = () => {
     const [key, setKey] = useState('user');
-    const [name, setName] = useState('testUser')
-    const [email, setEmail] = useState('test@user.com')
+    const [name, setName] = useState('testUser2')
+    const [email, setEmail] = useState('test@user2.com')
     const [password, setPassword] = useState('password')
-    const signUp = (e) => {
+    const signUp = async(e) => {
         e.preventDefault();
-        const reg = register(name,email,password)
+        const reg = await register(name,email,password)
+        console.log(reg)
     };
     
 

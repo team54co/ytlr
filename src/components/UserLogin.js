@@ -7,8 +7,7 @@ const UserLogin = () => {
     const [password, setPassword] = useState('password')
     const signIn = async(e) => {
         e.preventDefault();
-        await login(email,password)
-        
+        console.log(await login(email,password))   
     }
     const google = (e) => {
         e.preventDefault();
