@@ -1,10 +1,20 @@
 import React, {useState} from 'react';
 import { Form, Button, Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
+import {register} from '../auth/Fire';
 
 
 
 const SignUp = () => {
     const [key, setKey] = useState('user');
+    const [name, setName] = useState('testUser')
+    const [email, setEmail] = useState('test@user.com')
+    const [password, setPassword] = useState('password')
+    const signUp = (e) => {
+        e.preventDefault();
+        const reg = register(name,email,password)
+    };
+    
+
   
     return (
         <Container>
@@ -43,7 +53,7 @@ const SignUp = () => {
                         <Form.Group controlId="formBasicCheckbox">
                             <Form.Check type="checkbox" label="Remember me" />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" onClick={signUp}>
                             Create Account
                         </Button>
                     </Form>
@@ -81,7 +91,7 @@ const SignUp = () => {
                         <Form.Group controlId="formBasicCheckbox">
                             <Form.Check type="checkbox" label="Remember me" />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" onClick={signUp}>
                             Create Account
                         </Button>
                     </Form>

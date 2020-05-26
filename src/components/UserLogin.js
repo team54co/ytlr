@@ -1,7 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
+import { login, googleIn } from '../auth/Fire';
 
 const UserLogin = () => {
+    const [email, setEmail] = useState('test@user.com')
+    const [password, setPassword] = useState('password')
+    const signIn = (e) => {
+        e.preventDefault();
+        login(email,password)
+    }
+    const google = (e) => {
+        e.preventDefault();
+        googleIn();
+    }
 
     return (
         <Container>
@@ -29,9 +40,18 @@ const UserLogin = () => {
                         <Form.Group controlId="formBasicCheckbox">
                             <Form.Check type="checkbox" label="Remember me" />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" onClick={signIn}>
                             Login
-                        </Button>
+                        </Button> <br></br>
+                        <Button variant="primary" type="submit" onClick={google}>
+                            Login with Google
+                        </Button> <br></br>
+                        <Button variant="primary" type="submit">
+                            Login with Facebook
+                        </Button> <br></br>
+                        <Button variant="primary" type="submit">
+                            Login with Twitter
+                        </Button> <br></br>
                     </Form>
                 </Col>
                 
