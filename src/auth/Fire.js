@@ -15,7 +15,8 @@ var firebaseConfig = {
   firebase.analytics();
 
   var provider = new firebase.auth.GoogleAuthProvider();
-  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+  var provider2 = new firebase.auth.FacebookAuthProvider();
+
 
   const googleIn = () =>firebase.auth().signInWithPopup(provider).then(function(result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
@@ -24,6 +25,7 @@ var firebaseConfig = {
     var user = result.user;
     // ...
     console.log(user,token)
+    return user
   }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -34,7 +36,36 @@ var firebaseConfig = {
     var credential = error.credential;
     // ...
     console.log(errorMessage);
+    return {
+        status: 500,
+        error: errorMessage
+    }
   });
+
+  const facebookIn = () => {firebase.auth().signInWithPopup(provider2).then(function(result) {
+    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+    var token = result.credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+    // ...
+    console.log(user,token)
+    return user
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+    console.log(errorMessage);
+    return {
+        status: 500,
+        error: errorMessage
+    }
+  })
+};
 
   const updateProfile = async(name) => {
     const user = await fire.auth().currentUser
@@ -55,7 +86,10 @@ const register = async(name,email,password) => {
         console.log(user)
         updateProfile(name);
         alert('User account created')
-        return user;
+        return {
+            status:200,
+            user
+        };
     }).catch(err => {
         alert('User account not created.there was a problem')
         console.log(err)
@@ -70,8 +104,8 @@ const login = async(email,password) => {
     firebase.auth().signInWithEmailAndPassword(email,password)
     .then(user => {
         alert('User signed in')
-        console.log(user)
-        return user
+        console.log(user.user)
+        return user.user
         
     }).catch(err => {
         alert('there was a problem signing you in')
@@ -82,4 +116,4 @@ const login = async(email,password) => {
 
 
 
-export { register, login, googleIn };
+export { register, login, googleIn, facebookIn };

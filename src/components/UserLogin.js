@@ -1,18 +1,24 @@
 import React, {useState} from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
-import { login, googleIn } from '../auth/Fire';
+import { login, googleIn, facebookIn } from '../auth/Fire';
 
 const UserLogin = () => {
     const [email, setEmail] = useState('test@user.com')
     const [password, setPassword] = useState('password')
-    const signIn = (e) => {
+    const signIn = async(e) => {
         e.preventDefault();
-        login(email,password)
+        await login(email,password)
+        
     }
     const google = (e) => {
         e.preventDefault();
         googleIn();
     }
+    const facebook = (e) => {
+        e.preventDefault();
+        facebookIn();
+    }
+    
 
     return (
         <Container>
@@ -46,7 +52,7 @@ const UserLogin = () => {
                         <Button variant="primary" type="submit" onClick={google}>
                             Login with Google
                         </Button> <br></br>
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" onClick={facebook}>
                             Login with Facebook
                         </Button> <br></br>
                         <Button variant="primary" type="submit">
